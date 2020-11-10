@@ -1,9 +1,38 @@
 
 from random import randint
 dico = {}
-def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
+'''def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
     for element in range(nb_submarine):
         x = randint(0,4)
         y = randint(0,4)
         dico["submarine"+str(element + 1)] = {'health' : submarine_life, 'position': [x,y]}
-    return dict_submarine
+    return dict_submarine'''
+
+from random import randint
+
+ dico = {​​​​}​​​​
+
+ def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
+
+     for element in range(nb_submarine):
+
+         x = randint(0,4)
+
+         y = randint(0,4)
+
+         dico["submarine"+str(element + 1)] = {​​​​'health' : submarine_life, 'position': [x,y]}​​​​
+
+     return dict_submarine
+
+ print(dict_submarine_generator(dico, 4, 2))
+
+
+for element in range(2):
+    list_sonar = dict_submarine['submarine%s' % str(element)]['position']
+    print(list_sonar)
+    list_sonar = 'list_sonar' + str(element)
+    
+
+    
+
+
