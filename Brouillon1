@@ -32,6 +32,33 @@ for element in range(2):
     print(list_sonar)
     list_sonar = 'list_sonar' + str(element)
     
+_______________________________________________________________________________________________________________
+
+from random import randint
+
+dico = {}
+
+
+def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
+    for element in range(nb_submarine):
+        x = randint(0,4)
+        y = randint(0,4)
+        dict_submarine["submarine"+str(element)] = {"health" : submarine_life, "position": [x,y]}
+    return dico
+
+print(dict_submarine_generator(dico, 4, 2))
+
+
+for element in range(4):
+    list_sonar = dico['submarine%s' % str(element)]['position']
+    print(list_sonar)
+    list_sonar = 'list_sonar' + str(element)
+
+    
+
+    
+
+
 
     
 
