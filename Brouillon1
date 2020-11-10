@@ -1,11 +1,9 @@
+
+from random import randint
+dico = {}
 def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
-
     for element in range(nb_submarine):
-
-     dico["submarine"+str(element)) = {​​'health' : submarine_life, 'position': []}​​]
-
-
-
-        
-
+        x = randint(0,4)
+        y = randint(0,4)
+        dico["submarine"+str(element + 1)] = {'health' : submarine_life, 'position': [x,y]}
     return dict_submarine
