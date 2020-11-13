@@ -140,3 +140,122 @@ for element in range(4):
     dico[sub_name]['position'] = list_position
     print(list_position)
 dico['submarine2']['position']
+
+
+____________________________________________________________________________________________________________________________________
+
+from random import randint
+
+dico = {}
+def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
+    for element in range(nb_submarine):
+        x = randint(0,4)
+        y = randint(0,4)
+        z = randint(1,4)
+        dict_submarine[element] = {"health" : submarine_life, "position": [x,y], "last_movement" : z}
+    return dico  
+
+for element in range(4):
+    list_sonar = dico[element]['position'] 
+    
+    list_identify = ['b', 'c', 'd']
+    if element > 3:
+        list_sonar = 'list_sonar' + str(list_identify[element])
+
+def move_possible(current_position, direction):
+
+    if  direction == 0:
+        current_position = current_position 
+    elif direction == 1 and current_position[1] >= 0:
+        current_position[1] = current_position[1] - 1
+        
+    elif direction == 2 and current_position[1] <= 4:
+        
+        current_position[1] =  int(current_position[1])  + 1
+    elif direction == 3 and current_position[0] <= 4:
+        
+        current_position[0] = int(current_position[0])  + 1
+    elif direction == 4 and current_position[0] >= 0:
+        
+        current_position[0] = int(current_position[0])  - 1
+    
+    
+    return current_position
+    
+def position_checker(banned_moves, position, last_movement, chance_direction_change):
+
+
+    direction_generator_corner = randint(0, 2)
+    
+    direction_generator_wall = randint(0, 3)
+    out_of_bound_list = [[2,3],[2,4], [1, 4], [1,3], [1], [2], [4], [3]]
+    allowed_moves = [[0, 1, 4],[0,1,3], [0,2,3], [0,2,4], [0,2,3,4], [0,1,3,4], [0,1,2,3], [0,1,2,4]]
+
+    if chance_direction_change != 5 and (last_movement not in out_of_bound_list[move_set]):
+        direction_generator = last_movement
+        move_possible(list_position, direction_generator)
+    else:
+        if len(out_of_bound_list[move_set]) == 2: 
+              
+            move = allowed_moves[move_set][direction_generator_corner]  
+           
+            move_possible(list_position, move)
+        else:
+           
+            move_possible(list_position, allowed_moves[move_set][direction_generator_wall])
+    return(position)
+
+for element in range(4): #here 4 is going to be replaced with the nb of remaining submarines that are alive
+    '''This is the function to set limits and make one mouvement,
+    for the direction generator the following applies:
+    0 is stay in place
+    1 is up
+    2 is down
+    3 is right
+    4 is left
+    '''
+    sub_name = element
+    print(sub_name)
+    list_position = list(dico[sub_name]['position'])
+    last_movement = dico[sub_name]['last_movement']   
+    chance_move_freeze = randint(0, 1)
+    print(chance_move_freeze)   
+    chance_direction_change = randint(0, 9)
+    direction_generator_corner = randint(0, 2)
+    direction_generator_wall = randint(0, 3)
+
+    if chance_move_freeze == 1:
+
+        if int(list_position[0]) == 4 and int(list_position[1]) == 4:
+            move_set = 0
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif int(list_position[0]) == 0 and int(list_position[1]) == 4:
+            move_set = 1
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif int(list_position[0]) == 0 and int(list_position[1]) == 0:
+            move_set = 2
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif int(list_position[0]) == 4 and int(list_position[1]) == 0:
+            move_set = 3
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif (0 < int(list_position[0]) < 4) and int(list_position[1]) == 0:
+            move_set = 4
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif (0 < int(list_position[0]) < 4) and int(list_position[1]) == 4:
+            move_set = 5
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif (0 < int(list_position[1]) < 4) and int(list_position[0]) == 0:
+            move_set = 6
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        elif (0 < int(list_position[1]) < 4) and int(list_position[0]) == 0:
+            move_set = 7
+            position_checker(move_set, list_position, last_movement, chance_direction_change)
+        else:    
+            direction_generator = randint(0, 4)
+            if chance_direction_change == 5:        
+                move_possible(list_position, direction_generator)
+                last_movement = direction_generator
+            else:
+                move_possible(list_position, last_movement)   
+                last_movement = last_movement
+    print(list_position)
