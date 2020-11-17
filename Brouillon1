@@ -478,6 +478,33 @@ while True:
           display.clear()
           sleep(300)
         display.set_pixel(target_x,target_y,9)
+       
+    ------------------------------------------------
+    from microbit import *  
+while True:
+    x=2 
+    y=2
+    while True:
+      get_x = accelerometer.get_x()
+      get_y = accelerometer.get_y()
+      get_z = accelerometer.get_z()
+      if get_y > 250 and get_z < 10:
+        y=y+1
+        display.clear()
+        sleep(50)
+      if get_y < -250 and get_z < 10:
+        y=y-1
+        display.clear()
+        sleep(50)
+      if get_x > 250 and get_z < 10:
+        x=x+1
+        display.clear()
+        sleep(50)
+      if get_x < -250 and get_z < 10:
+        x=x-1
+        display.clear()
+        sleep(50)
+      display.set_pixel(x,y,9)
 
 
 
