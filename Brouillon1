@@ -449,7 +449,35 @@ for element in range(4): #here 4 is going to be replaced with the nb of remainin
 print(dico['submarine2']['position'])
 
 
-            
+__________________________________________________
+
+viseur
+_________
+
+from microbit import *
+    
+while True: 
+    target_x = 2
+    target_y = 2 
+    
+    while True:
+        if accelerometer.get_x()> 250:
+          target_x = target_x + 1
+          display.clear()
+          sleep(300)
+        if accelerometer.get_x()< -250:
+          target_x = target_x - 1
+          display.clear()
+          sleep(300)
+        if accelerometer.get_y()> 250:
+          target_y = target_y + 1
+          display.clear()
+          sleep(300)
+        if accelerometer.get_y()< -250:
+          target_y = target_y - 1
+          display.clear()
+          sleep(300)
+        display.set_pixel(target_x,target_y,9)
 
 
 
