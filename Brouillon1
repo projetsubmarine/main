@@ -454,33 +454,7 @@ __________________________________________________
 viseur
 _________
 
-from microbit import *
-    
-while True: 
-    target_x = 2
-    target_y = 2 
-    
-    while True:
-        if accelerometer.get_x()> 250:
-          target_x = target_x + 1
-          display.clear()
-          sleep(300)
-        if accelerometer.get_x()< -250:
-          target_x = target_x - 1
-          display.clear()
-          sleep(300)
-        if accelerometer.get_y()> 250:
-          target_y = target_y + 1
-          display.clear()
-          sleep(300)
-        if accelerometer.get_y()< -250:
-          target_y = target_y - 1
-          display.clear()
-          sleep(300)
-        display.set_pixel(target_x,target_y,9)
-       
-    ------------------------------------------------
-    from microbit import *  
+from microbit import *  
 while True:
     x=2 
     y=2
@@ -488,22 +462,22 @@ while True:
       get_x = accelerometer.get_x()
       get_y = accelerometer.get_y()
       get_z = accelerometer.get_z()
-      if get_y > 250 and get_z < 10:
+      if get_y > 250 and get_z < 100:
         y=y+1
         display.clear()
-        sleep(50)
-      if get_y < -250 and get_z < 10:
+        sleep(300)
+      if get_y < -250 and get_z < 100:
         y=y-1
         display.clear()
-        sleep(50)
-      if get_x > 250 and get_z < 10:
+        sleep(300)
+      if get_x > 250 and get_z < 100:
         x=x+1
         display.clear()
-        sleep(50)
-      if get_x < -250 and get_z < 10:
+        sleep(300)
+      if get_x < -250 and get_z < 100:
         x=x-1
         display.clear()
-        sleep(50)
+        sleep(300)
       display.set_pixel(x,y,9)
 
 
