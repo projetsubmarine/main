@@ -557,6 +557,29 @@ list_total = [list_x, list_y]
 display.show(list_total,loop = False, delay = 1000)
 
 
+_________________________________________________________________________________________________________________
+
+from microbit import *
+
+from random import randint
+
+dico = []
+def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
+    for element in range(nb_submarine):
+        x = randint(0,4)
+        y = randint(0,4)
+        z = randint(1,4)
+        dict_submarine.append({"health" : submarine_life, "position": [x,y], "last_movement" : z})
+    return dico  
+
+dict_submarine_generator(dico, 4, 2)
+
+list_x = []
+list_y = []
+for element in range(4):
+  display.set_pixel((dico[element]['position'][0]), (dico[element]['position'][1]), 9)
+
+
     
 
 
