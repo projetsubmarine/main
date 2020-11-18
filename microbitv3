@@ -136,27 +136,21 @@ print(dico)
 
 def fire_btton_a():
     
-    for submarine in range(len(dico_1)):
-       if position_visor == dico_1[submarine]['position']:
-           dico_1[submarine]['health'] = dico_1[submarine]['health'] - 1
-           if dico_1[submarine]['health'] == 0:
-               list_dead.append(submarine)
-               #submarine is dead need to redo dico_1
+    for submarine in range(len(dico)):
+
+    if position_visor == dico[submarine]['position']:
+        dico[submarine]['health'] = dico[submarine]['health'] - 1
+        if dico[submarine]['health'] == 0:
+            list_dead.append(submarine)
+            #submarine is dead need to redo dico
     print(list_dead)
-    
+
     for number in list_dead:
-       print(number)
-       print(len(list_dead))
-       if len(list_dead) == 1:
-           dico_1.remove(dico_1[number])
-       else:
-           print('here')
-           dico_1.remove(dico_1[number])
-           
-           list_dead.remove(number)
-           print(list_dead)
-           list_dead[number] = list_dead[number] - 1
-           print(list_dead)
+
+        if len(list_dead) == 1:
+            dico.remove(dico[list_dead[0]])
+        else:
+            dico.remove(dico[list_dead[0]])
 
 
 position_visor = [4,2]        
