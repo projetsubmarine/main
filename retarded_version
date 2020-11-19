@@ -100,9 +100,9 @@ while not game_is_over:
             position_visor = [target_x, target_y]            
             while True:
               display.clear()
-              get_x = accelerater.get_x()
-              get_y = accelerater.get_y()
-              get_z = accelerater.get_z()
+              get_x = accelerometer.get_x()
+              get_y = accelerometer.get_y()
+              get_z = accelerometer.get_z()
               if get_y > 250 and get_z < 100:
                 m_c_f_1(position_visor[0], position_visor[1], position_visor, 0, None, 2)
                 display.clear()
