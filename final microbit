@@ -1,0 +1,167 @@
+from microbit import *
+from random import randint
+def visor_function(): 
+        x = True
+        while x == True:
+            target_x = 2 
+            target_y = 2
+            position_visor = [target_x, target_y]
+            y = True            
+            while y == True:
+                display.clear()
+                get_x = accelerometer.get_x()
+                get_y = accelerometer.get_y()
+                get_z = accelerometer.get_z()
+                if get_y > 250 and get_z < 100:
+                  m_c_f_1(position_visor[0], position_visor[1], position_visor, 0, None, 2)
+                  display.clear()
+                  sleep(300)                  
+                if get_y < -250 and get_z < 100:
+                  m_c_f_1(position_visor[0], position_visor[1], position_visor, 0, None, 1)
+                  display.clear()
+                  sleep(300)                
+                if get_x > 250 and get_z < 100:
+                  m_c_f_1(position_visor[0], position_visor[1], position_visor, 0, None, 3)
+                  display.clear()
+                  sleep(300)                  
+                if get_x < -250 and get_z < 100:
+                  m_c_f_1(position_visor[0], position_visor[1], position_visor, 0, None, 4)
+                  display.clear()
+                  sleep(300)
+                display.set_pixel(position_visor[0],position_visor[1],9)
+                z = True
+                while z == True:
+                    if button_a.is_pressed(): 
+                        x = False
+                        y = False 
+                        z = False
+                        condition = False                     
+                        return (condition, position_visor)                                                                     
+                    elif button_b.is_pressed():
+                        x = False
+                        y = False 
+                        z = False
+                        return position_visor                        
+def m_p_f(c_p_r, direction):
+    if  direction == 0:
+        c_p_r = c_p_r 
+    elif direction == 1 and c_p_r[1] >= 0: 
+        c_p_r[1] =  int(c_p_r[1])  - 1
+    elif direction == 2 and c_p_r[1] <= 4:        
+        c_p_r[1] =  int(c_p_r[1])  + 1
+    elif direction == 3 and c_p_r[0] <= 4:        
+        c_p_r[0] = int(c_p_r[0])  + 1
+    elif direction == 4 and c_p_r[0] >= 0:        
+        c_p_r[0] = int(c_p_r[0])  - 1    
+    return c_p_r     
+def p_c_f(position, l_m, c_d_c, move_set, a_c):
+    v_m_l = [[1,0,0,4],[1,0,3,0], [0,2,3,0],[0,2,0,4], [0,2,3,4], [1,0,3,4], [1,2,3,0], [1,2,0,4]]
+    d_g_r_corner = randint(0, 2)    
+    d_g_r_wall = randint(0, 3)
+    out_of_bound_list = [[2,3],[2,4], [1, 4], [1,3], [1], [2], [4], [3]]
+    allowed_moves = [[0,1,4],[0,1,3], [0,2,3], [0,2,4], [0,2,3,4], [0,1,3,4], [0,1,2,3], [0,1,2,4]]
+    if a_c != None:        
+        a_c = a_c - 1
+        d_g_r = v_m_l[move_set][a_c]
+        m_p_f(position, d_g_r)
+    elif c_d_c != 5 and (l_m not in out_of_bound_list[move_set]):
+        d_g_r = l_m
+        m_p_f(position, d_g_r)
+    else:
+        if len(out_of_bound_list[move_set]) == 2:               
+            move = allowed_moves[move_set][d_g_r_corner]             
+            m_p_f(position, move)
+        else:           
+            m_p_f(position, allowed_moves[move_set][d_g_r_wall])
+    return(position)
+target_x = 2
+target_y = 2
+nb_submarines = 4
+submarine_life = 2
+dico = []
+def dict_submarine_generator(dict_submarine, nb_submarine, submarine_life):
+    for element in range(nb_submarine):
+        x = randint(0,4)
+        y = randint(0,4)
+        z = randint(1,4)
+        dict_submarine.append({"health" : submarine_life, "position": [x,y], "l_m" : z})
+    return dico  
+dict_submarine_generator(dico, nb_submarines, 2)
+for element in range(len(dico)):
+    display.set_pixel((dico[element]['position'][0]), (dico[element]['position'][1]), 9)
+    if element == (len(dico) - 1):
+      sleep(5000)     
+def m_c_f_1(c_p_x, c_p_y, l_p,c_d_c, l_m = None, a_c = None):
+    if int(c_p_x) == 4 and int(c_p_y) == 4:
+        move_set = 0
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif int(c_p_x) == 0 and int(c_p_y) == 4:
+        move_set = 1
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif int(c_p_x) == 0 and int(c_p_y) == 0:
+        move_set = 2
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif int(c_p_x) == 4 and int(c_p_y) == 0:
+        move_set = 3
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif (0 < int(c_p_x) < 4) and int(c_p_y) == 0:
+        move_set = 4
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif (0 < int(c_p_x) < 4) and int(c_p_y) == 4:
+        move_set = 5
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif (0 < int(c_p_y) < 4) and int(c_p_x) == 0:
+        move_set = 6
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    elif (0 < int(c_p_y) < 4) and int(c_p_x) == 4:       
+        move_set = 7
+        p_c_f(l_p, l_m, c_d_c, move_set, a_c)
+    else:  
+        if a_c != None:
+            d_g_r = a_c 
+            m_p_f(l_p, d_g_r) 
+        else:
+            d_g_r = randint(0, 4)
+        if c_d_c == 5:        
+            m_p_f(l_p, d_g_r)
+            l_m = d_g_r
+        else:
+            m_p_f(l_p, l_m)   
+            l_m = l_m 
+game_is_over = False
+list_dead = []
+while not game_is_over:
+    condition = visor_function()   
+    if condition[0] == False:        
+        for submarine in range(len(dico)): 
+            if condition[1] == dico[submarine]['position']:
+                dico[submarine]['health'] = dico[submarine]['health'] - 1
+                if dico[submarine]['health'] == 0:
+                    list_dead.append(submarine)                  
+        for number in list_dead:        
+            if len(list_dead) == 1:
+                dico.remove(dico[list_dead[0]])
+            else:
+                dico.remove(dico[list_dead[0]])             
+    else:
+        for element in range(len(dico)):
+            display.set_pixel((dico[element]['position'][0]), (dico[element]['position'][1]), 9) 
+    sleep(2500)
+    display.clear()
+    if len(dico) == 0:
+        game_is_over = True    
+    if not game_is_over:
+        for element in range(len(dico)): 
+            sub_name = element   
+            l_p = dico[sub_name]["position"]
+            l_m = dico[sub_name]['l_m']   
+            chance_move_freeze = randint(0, 1)     
+            c_d_c = randint(0, 9)
+            d_g_r_corner = randint(0, 2)
+            d_g_r_wall = randint(0, 3)
+            if chance_move_freeze == 1:           
+                m_c_f_1(l_p[0], l_p[1], l_p, c_d_c, l_m, None)
+           
+ 
+
+
